@@ -70,7 +70,9 @@ public class UserProfile extends AppCompatActivity {
         setSupportActionBar(toolbar);
         Bundle extras = getIntent().getExtras();
         final String username = extras.getString("username");
-
+        TextView userInfoView = findViewById(R.id.userInfo);
+        String userInfo = "Welcome!!".concat(username);
+        userInfoView.setText(userInfo);
          fab = findViewById(R.id.fab);
 /*        fab.setOnClickListener(new View.OnClickListener() {
             @Override

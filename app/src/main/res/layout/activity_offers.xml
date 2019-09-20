@@ -68,7 +68,6 @@
         android:layout_marginBottom="64dp"
         android:textColor="@color/transparent"
         android:background="@drawable/roundbutton"
-
         app:cornerRadius="50dp"
         app:rippleColor="@color/transparent"
         app:strokeColor="@color/black"

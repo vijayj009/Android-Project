@@ -200,10 +200,11 @@ public class UserProfile extends AppCompatActivity {
                                         @Override
                                         public void onClick(View v) {
                                             popupWindowValid.dismiss();
+                                            popWindowAvailableFacility.dismiss();
+                                            popupWindow.dismiss();
                                         }
                                     });
-                                    popWindowAvailableFacility.dismiss();
-                                    popupWindow.dismiss();
+
                                     fab.setEnabled(false);
                                     //popupBtn.setVisibility(View.INVISIBLE);
                                 }
@@ -222,10 +223,11 @@ public class UserProfile extends AppCompatActivity {
                                         @Override
                                         public void onClick(View v) {
                                             popwinddowValidNotRequired.dismiss();
+                                            popWindowAvailableFacility.dismiss();
+                                            popupWindow.dismiss();
                                         }
                                     });
-                                    popWindowAvailableFacility.dismiss();
-                                    popupWindow.dismiss();
+
                                     fab.setEnabled(false);
                                     //popupBtn.setVisibility(View.INVISIBLE);
                                 }
@@ -258,10 +260,11 @@ public class UserProfile extends AppCompatActivity {
                                         @Override
                                         public void onClick(View v) {
                                             popupWindowValid.dismiss();
+                                            popWindowAvailableFacility.dismiss();
+                                            popupWindow.dismiss();
                                         }
                                     });
-                                    popWindowAvailableFacility.dismiss();
-                                    popupWindow.dismiss();
+
                                     fab.setEnabled(false);
                                     //popupBtn.setVisibility(View.INVISIBLE);
                                 }
@@ -280,10 +283,11 @@ public class UserProfile extends AppCompatActivity {
                                         @Override
                                         public void onClick(View v) {
                                             popwinddowValidNotRequired.dismiss();
+                                            popWindowAvailableFacility.dismiss();
+                                            popupWindow.dismiss();
                                         }
                                     });
-                                    popWindowAvailableFacility.dismiss();
-                                    popupWindow.dismiss();
+
                                     fab.setEnabled(false);
                                     //popupBtn.setVisibility(View.INVISIBLE);
                                 }
@@ -316,10 +320,11 @@ public class UserProfile extends AppCompatActivity {
                                         @Override
                                         public void onClick(View v) {
                                             popupWindowValid.dismiss();
+                                            popWindowAvailableFacility.dismiss();
+                                            popupWindow.dismiss();
                                         }
                                     });
-                                    popWindowAvailableFacility.dismiss();
-                                    popupWindow.dismiss();
+
                                     fab.setEnabled(false);
                                     //popupBtn.setVisibility(View.INVISIBLE);
                                 }
@@ -338,10 +343,11 @@ public class UserProfile extends AppCompatActivity {
                                         @Override
                                         public void onClick(View v) {
                                             popwinddowValidNotRequired.dismiss();
+                                            popWindowAvailableFacility.dismiss();
+                                            popupWindow.dismiss();
                                         }
                                     });
-                                    popWindowAvailableFacility.dismiss();
-                                    popupWindow.dismiss();
+
                                     fab.setEnabled(false);
                                     //popupBtn.setVisibility(View.INVISIBLE);
                                 }
@@ -374,10 +380,10 @@ public class UserProfile extends AppCompatActivity {
                                         @Override
                                         public void onClick(View v) {
                                             popupWindowValid.dismiss();
+                                            popWindowAvailableFacility.dismiss();
+                                            popupWindow.dismiss();
                                         }
                                     });
-                                    popWindowAvailableFacility.dismiss();
-                                    popupWindow.dismiss();
                                     fab.setEnabled(false);
                                 }
                             });
@@ -395,10 +401,10 @@ public class UserProfile extends AppCompatActivity {
                                         @Override
                                         public void onClick(View v) {
                                             popwinddowValidNotRequired.dismiss();
+                                            popWindowAvailableFacility.dismiss();
+                                            popupWindow.dismiss();
                                         }
                                     });
-                                    popWindowAvailableFacility.dismiss();
-                                    popupWindow.dismiss();
                                     fab.setEnabled(false);
                                     //popupBtn.setVisibility(View.INVISIBLE);
                                 }

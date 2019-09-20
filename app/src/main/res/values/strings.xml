@@ -12,6 +12,7 @@
     <string name="received_message">"Given Circumstances - \n We have decided to postpone your payment due date by 30 days!!"</string>
     <string name="fee_waiver_message">"Given Circumstances - \n We have decided to proactively waive off late fees on your last payment due!!"</string>
     <string name="apr_purchase_discount">"Given Circumstances - \n We are proposing to reduce APR on purchase transactions to 15% for next 30 days!!"</string>
+    <string name="instant_credit_increment">"Given Circumstances - \n We are proposing to increase the credit limit by $1000"</string>
     <string name="title_activity_user__profile">User_Profile</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

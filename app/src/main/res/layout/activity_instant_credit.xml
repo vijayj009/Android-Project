@@ -18,11 +18,11 @@
         android:textColor="@color/transparent"
         android:textSize="17dp"
         android:textStyle="bold"
-        android:text="@string/apr_purchase_discount"/>
+        android:text="@string/instant_credit_increment"/>
 
     <Button
         style="@style/Widget.AppCompat.Button.Borderless"
-        android:id="@+id/agreeBtn"
+        android:id="@+id/acptBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
@@ -41,7 +41,7 @@
 
     <Button
         style="@style/Widget.AppCompat.Button.Borderless"
-        android:id="@+id/nevermindbtn"
+        android:id="@+id/dontCareBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -49,8 +49,9 @@
         android:layout_marginTop="300dp"
         android:layout_marginRight="30dp"
         android:layout_marginBottom="64dp"
-        app:cornerRadius="50dp"
         android:textColor="@color/transparent"
+        android:textSize="17dp"
+        app:cornerRadius="50dp"
         app:rippleColor="@color/transparent"
         app:strokeColor="@color/transparent"
         android:background="@drawable/roundbutton"

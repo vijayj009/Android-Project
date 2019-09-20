@@ -21,7 +21,7 @@
 
     <Button
         style="@style/Widget.AppCompat.Button.Borderless"
-        android:id="@+id/closePopupBtn"
+        android:id="@+id/acceptBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
@@ -31,15 +31,16 @@
         android:layout_weight=".10"
         android:gravity="center"
         android:textSize="17dp"
-        app:cornerRadius="8dp"
-        app:rippleColor="#33AAAAAA"
-        app:strokeColor="@color/green"
+        app:cornerRadius="50dp"
+        android:textColor="@color/transparent"
+        app:rippleColor="@color/transparent"
+        app:strokeColor="@color/transparent"
         android:background="@drawable/roundbutton"
         android:text="Accept" />
 
     <Button
         style="@style/Widget.AppCompat.Button.Borderless"
-        android:id="@+id/skipButton"
+        android:id="@+id/ignoreBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -47,11 +48,11 @@
         android:layout_marginTop="300dp"
         android:layout_marginRight="30dp"
         android:layout_marginBottom="64dp"
-        android:textColor="@color/red"
         android:textSize="17dp"
-        app:cornerRadius="8dp"
-        app:rippleColor="#33AAAAAA"
-        app:strokeColor="@color/red"
+        app:cornerRadius="50dp"
+        android:textColor="@color/transparent"
+        app:rippleColor="@color/transparent"
+        app:strokeColor="@color/transparent"
         android:background="@drawable/roundbutton"
         android:text="Skip>>" />
  <!--   <Button

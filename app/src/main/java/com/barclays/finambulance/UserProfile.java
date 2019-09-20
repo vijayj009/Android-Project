@@ -13,6 +13,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.barclays.finambulance.ui.login.LoginActivity;
 import com.barclays.finambulance.ui.login.OffersActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -44,6 +45,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 public class UserProfile extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
@@ -51,7 +59,9 @@ public class UserProfile extends AppCompatActivity {
     Button popupBtn,negativebutton,showPopupBtn,closePopupBtn,skipButton,submitButton,okBtn;
     private RequestQueue mRequestQueue;
     private StringRequest mStringRequest;
-    final String url = "https://www.google.com";
+    FloatingActionButton fab;
+    Button logout;
+    final String url = "https://wilpdm31491.juniper.com:8086/offer-engine/";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,7 +71,7 @@ public class UserProfile extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         final String username = extras.getString("username");
 
-        FloatingActionButton fab = findViewById(R.id.fab);
+         fab = findViewById(R.id.fab);
 /*        fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -81,10 +91,17 @@ public class UserProfile extends AppCompatActivity {
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow,
-                R.id.nav_tools, R.id.nav_share, R.id.nav_send)
+                R.id.nav_tools, R.id.nav_share, R.id.nav_send, R.id.logout)
                 .setDrawerLayout(drawer)
                 .build();
 
+      /*if (id == R.id.logout) {
+            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        }*/
+
+//        mAppBarConfiguration.getDrawerLayout().findViewById(R.id.logout);
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
@@ -150,69 +167,243 @@ public class UserProfile extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         LayoutInflater layoutInflater = (LayoutInflater) UserProfile.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                        View facilityView = null;
-                        String responseString = sendResponse(username);
+                       View facilityView= null;
+                       View feeWaiverView= null;
+                       View aprDiscountView= null;
+                       View creditIncremnetView = null;
+                      /* String responseString = sendResponse(username);
+                       Toast.makeText(getApplicationContext(),"Response :" + responseString, Toast.LENGTH_LONG).show();*/
+                        if("Ben".equals(username)) {
+                             feeWaiverView = layoutInflater.inflate(R.layout.activity_fee_waiver, null);
 
-                        if("Nishigandha".equals(username)) {
-                            facilityView = layoutInflater.inflate(R.layout.activity_facility, null);
-                        }else if("Siva".equals(username)){
-                            facilityView = layoutInflater.inflate(R.layout.activity_fee_waiver,null);
+                            closePopupBtn = (Button) feeWaiverView.findViewById(R.id.closePopupBtn);
+                            skipButton = feeWaiverView.findViewById(R.id.skipButton);
+
+
+                            popWindowAvailableFacility = new PopupWindow(feeWaiverView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+                            //display the popup window
+                            popWindowAvailableFacility.setWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
+                            popWindowAvailableFacility.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
+                            popWindowAvailableFacility.showAtLocation(layout, Gravity.CENTER, 0, 0);
+                            closePopupBtn.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    LayoutInflater layoutInflater = (LayoutInflater) UserProfile.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                                    View validView = layoutInflater.inflate(R.layout.activity_accept,null);
+                                    submitButton = validView.findViewById(R.id.submitButton);
+                                    popupWindowValid = new PopupWindow(validView,ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+                                    popupWindowValid.showAtLocation(layout, Gravity.CENTER, 0, 0);
+
+                                    submitButton.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            popupWindowValid.dismiss();
+                                        }
+                                    });
+                                    popWindowAvailableFacility.dismiss();
+                                    popupWindow.dismiss();
+                                    fab.setEnabled(false);
+                                    //popupBtn.setVisibility(View.INVISIBLE);
+                                }
+                            });
+                            skipButton.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    LayoutInflater layoutInflater = (LayoutInflater) UserProfile.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                                    View skipView = layoutInflater.inflate(R.layout.activity_skip,null);
+                                    okBtn = skipView.findViewById(R.id.okBtn);
+                                    popwinddowValidNotRequired = new PopupWindow(skipView,ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+
+                                    popwinddowValidNotRequired.showAtLocation(layout,Gravity.CENTER,0,0);
+
+                                    okBtn.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            popwinddowValidNotRequired.dismiss();
+                                        }
+                                    });
+                                    popWindowAvailableFacility.dismiss();
+                                    popupWindow.dismiss();
+                                    fab.setEnabled(false);
+                                    //popupBtn.setVisibility(View.INVISIBLE);
+                                }
+                            });
+                        }else if("Tom".equals(username)){
+                            String response = sendResponse(username);
+                            Toast.makeText(getApplicationContext(),"Response :" + response, Toast.LENGTH_LONG).show();
+                            facilityView = layoutInflater.inflate(R.layout.activity_facility,null);
+                            closePopupBtn = (Button) facilityView.findViewById(R.id.acceptBtn);
+                            skipButton = facilityView.findViewById(R.id.ignoreBtn);
+
+
+                            popWindowAvailableFacility = new PopupWindow(facilityView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+                            //display the popup window
+                            popWindowAvailableFacility.setWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
+                            popWindowAvailableFacility.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
+                            popWindowAvailableFacility.showAtLocation(layout, Gravity.CENTER, 0, 0);
+                            closePopupBtn.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    LayoutInflater layoutInflater = (LayoutInflater) UserProfile.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                                    View validView = layoutInflater.inflate(R.layout.activity_accept_late_fee_waiver,null);
+                                    submitButton = validView.findViewById(R.id.allDoneBtn);
+                                    popupWindowValid = new PopupWindow(validView,ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+                                    popupWindowValid.showAtLocation(layout, Gravity.CENTER, 0, 0);
+
+                                    submitButton.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            popupWindowValid.dismiss();
+                                        }
+                                    });
+                                    popWindowAvailableFacility.dismiss();
+                                    popupWindow.dismiss();
+                                    fab.setEnabled(false);
+                                    //popupBtn.setVisibility(View.INVISIBLE);
+                                }
+                            });
+                            skipButton.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    LayoutInflater layoutInflater = (LayoutInflater) UserProfile.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                                    View skipView = layoutInflater.inflate(R.layout.activity_skip,null);
+                                    okBtn = skipView.findViewById(R.id.okBtn);
+                                    popwinddowValidNotRequired = new PopupWindow(skipView,ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+
+                                    popwinddowValidNotRequired.showAtLocation(layout,Gravity.CENTER,0,0);
+
+                                    okBtn.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            popwinddowValidNotRequired.dismiss();
+                                        }
+                                    });
+                                    popWindowAvailableFacility.dismiss();
+                                    popupWindow.dismiss();
+                                    fab.setEnabled(false);
+                                    //popupBtn.setVisibility(View.INVISIBLE);
+                                }
+                            });
                         }
-                        else if ("Vijay".equals(username)){
-                            facilityView = layoutInflater.inflate(R.layout.activity_apr_discount,null);
+                        else if ("Steve".equals(username)){
+                            aprDiscountView = layoutInflater.inflate(R.layout.activity_apr_discount,null);
+
+                            closePopupBtn = (Button) aprDiscountView.findViewById(R.id.agreeBtn);
+                            skipButton = aprDiscountView.findViewById(R.id.nevermindbtn);
+
+
+                            popWindowAvailableFacility = new PopupWindow(aprDiscountView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+                            //display the popup window
+                            popWindowAvailableFacility.setWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
+                            popWindowAvailableFacility.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
+                            popWindowAvailableFacility.showAtLocation(layout, Gravity.CENTER, 0, 0);
+                            closePopupBtn.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    LayoutInflater layoutInflater = (LayoutInflater) UserProfile.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                                    View validView = layoutInflater.inflate(R.layout.activity_accept_apr,null);
+                                    submitButton = validView.findViewById(R.id.doneBtn);
+                                    popupWindowValid = new PopupWindow(validView,ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+                                    popupWindowValid.showAtLocation(layout, Gravity.CENTER, 0, 0);
+
+                                    submitButton.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            popupWindowValid.dismiss();
+                                        }
+                                    });
+                                    popWindowAvailableFacility.dismiss();
+                                    popupWindow.dismiss();
+                                    fab.setEnabled(false);
+                                    //popupBtn.setVisibility(View.INVISIBLE);
+                                }
+                            });
+                            skipButton.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    LayoutInflater layoutInflater = (LayoutInflater) UserProfile.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                                    View skipView = layoutInflater.inflate(R.layout.activity_skip,null);
+                                    okBtn = skipView.findViewById(R.id.okBtn);
+                                    popwinddowValidNotRequired = new PopupWindow(skipView,ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+
+                                    popwinddowValidNotRequired.showAtLocation(layout,Gravity.CENTER,0,0);
+
+                                    okBtn.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            popwinddowValidNotRequired.dismiss();
+                                        }
+                                    });
+                                    popWindowAvailableFacility.dismiss();
+                                    popupWindow.dismiss();
+                                    fab.setEnabled(false);
+                                    //popupBtn.setVisibility(View.INVISIBLE);
+                                }
+                            });
                         }
-                        closePopupBtn = (Button) facilityView.findViewById(R.id.closePopupBtn);
-                        skipButton = facilityView.findViewById(R.id.skipButton);
+                        else if("John".equals(username)){
+                            creditIncremnetView = layoutInflater.inflate(R.layout.activity_instant_credit,null);
+
+                            closePopupBtn = (Button) creditIncremnetView.findViewById(R.id.acptBtn);
+                            skipButton = creditIncremnetView.findViewById(R.id.dontCareBtn);
 
 
-                        popWindowAvailableFacility = new PopupWindow(facilityView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                            popWindowAvailableFacility = new PopupWindow(creditIncremnetView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
-                        //display the popup window
-                        popWindowAvailableFacility.setWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
-                        popWindowAvailableFacility.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
-                        popWindowAvailableFacility.showAtLocation(layout, Gravity.CENTER, 0, 0);
-                        closePopupBtn.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                LayoutInflater layoutInflater = (LayoutInflater) UserProfile.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                                View validView = layoutInflater.inflate(R.layout.activity_accept,null);
-                                submitButton = validView.findViewById(R.id.submitButton);
-                                popupWindowValid = new PopupWindow(validView,ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                            //display the popup window
+                            popWindowAvailableFacility.setWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
+                            popWindowAvailableFacility.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
+                            popWindowAvailableFacility.showAtLocation(layout, Gravity.CENTER, 0, 0);
+                            closePopupBtn.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    LayoutInflater layoutInflater = (LayoutInflater) UserProfile.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                                    View validView = layoutInflater.inflate(R.layout.activity_accept_fee,null);
+                                    submitButton = validView.findViewById(R.id.finishBtn);
+                                    popupWindowValid = new PopupWindow(validView,ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
-                                popupWindowValid.showAtLocation(layout, Gravity.CENTER, 0, 0);
+                                    popupWindowValid.showAtLocation(layout, Gravity.CENTER, 0, 0);
 
-                                submitButton.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        popupWindowValid.dismiss();
-                                    }
-                                });
-                                popWindowAvailableFacility.dismiss();
-                                popupWindow.dismiss();
-                                //popupBtn.setVisibility(View.INVISIBLE);
-                            }
-                        });
-                        skipButton.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                LayoutInflater layoutInflater = (LayoutInflater) UserProfile.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                                View skipView = layoutInflater.inflate(R.layout.activity_skip,null);
-                                okBtn = skipView.findViewById(R.id.okBtn);
-                                popwinddowValidNotRequired = new PopupWindow(skipView,ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+                                    submitButton.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            popupWindowValid.dismiss();
+                                        }
+                                    });
+                                    popWindowAvailableFacility.dismiss();
+                                    popupWindow.dismiss();
+                                    fab.setEnabled(false);
+                                }
+                            });
+                            skipButton.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    LayoutInflater layoutInflater = (LayoutInflater) UserProfile.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                                    View skipView = layoutInflater.inflate(R.layout.activity_skip,null);
+                                    okBtn = skipView.findViewById(R.id.okBtn);
+                                    popwinddowValidNotRequired = new PopupWindow(skipView,ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
 
-                                popwinddowValidNotRequired.showAtLocation(layout,Gravity.CENTER,0,0);
+                                    popwinddowValidNotRequired.showAtLocation(layout,Gravity.CENTER,0,0);
 
-                                okBtn.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        popwinddowValidNotRequired.dismiss();
-                                    }
-                                });
-                                popWindowAvailableFacility.dismiss();
-                                popupWindow.dismiss();
-                                //popupBtn.setVisibility(View.INVISIBLE);
-                            }
-                        });
+                                    okBtn.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            popwinddowValidNotRequired.dismiss();
+                                        }
+                                    });
+                                    popWindowAvailableFacility.dismiss();
+                                    popupWindow.dismiss();
+                                    fab.setEnabled(false);
+                                    //popupBtn.setVisibility(View.INVISIBLE);
+                                }
+                            });
+                        }
                     }
                 });
 
@@ -224,7 +415,7 @@ public class UserProfile extends AppCompatActivity {
     }
 
 
-    public void offerdetails(){
+   /* public void offerdetails(){
         popupBtn = findViewById(R.id.popupBtn);
         final DrawerLayout layout = findViewById(R.id.drawer_layout);
 
@@ -241,7 +432,7 @@ public class UserProfile extends AppCompatActivity {
 
             }
         });
-    }
+    }*/
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -256,13 +447,34 @@ public class UserProfile extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
-    public String sendResponse(String userName){
+    public String sendResponse(String userName) {
+        StringBuilder result = new StringBuilder();
+        HttpURLConnection urlConnection = null;
+        try {
+            String apiUrl = url.concat(userName); // concatenate uri with base url eg: localhost:8080/ + uri
+            URL requestUrl = new URL(apiUrl);
+            urlConnection = (HttpURLConnection) requestUrl.openConnection();
+            urlConnection.connect(); // no connection is made
+            InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                result.append(line);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            urlConnection.disconnect();
+        }
+        return result.toString();
+       /* String baseUrl = url.concat(userName);
         mRequestQueue = Volley.newRequestQueue(this);
-        mStringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+        mStringRequest = new StringRequest(Request.Method.GET, baseUrl, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 
-                // Toast.makeText(getApplicationContext(),"Response :" + response.toString(), Toast.LENGTH_LONG).show();//display the response on screen
+               Toast.makeText(getApplicationContext(),"Response :" + response.toString(), Toast.LENGTH_LONG).show();//display the response on screen
 
             }
         }, new Response.ErrorListener() {
@@ -273,5 +485,6 @@ public class UserProfile extends AppCompatActivity {
         });
         mRequestQueue.add(mStringRequest);
         return "Congratulation!!! Due date is pushed by 10 days.";
+    }*/
     }
 }

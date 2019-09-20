@@ -50,8 +50,11 @@
         android:layout_marginBottom="48dp"
         android:layout_weight=".10"
         android:gravity="center"
-        android:textColor="@color/green"
+        android:textColor="@color/transparent"
         android:background="@drawable/roundbutton"
+        app:cornerRadius="50dp"
+        app:rippleColor="@color/transparent"
+        app:strokeColor="@color/black"
         android:text="   Yes, I am   " />
 
     <Button
@@ -63,8 +66,12 @@
         android:layout_marginTop="300dp"
         android:layout_marginRight="30dp"
         android:layout_marginBottom="64dp"
-        android:textColor="@color/red"
+        android:textColor="@color/transparent"
         android:background="@drawable/roundbutton"
+
+        app:cornerRadius="50dp"
+        app:rippleColor="@color/transparent"
+        app:strokeColor="@color/black"
         android:text="   No, I am Good   " />
 
     <!--<ImageView

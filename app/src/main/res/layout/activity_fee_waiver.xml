@@ -4,13 +4,8 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:layout_marginLeft="98dp"
-    android:layout_marginTop="180dp"
-    android:layout_marginRight="36dp"
-    android:layout_marginBottom="48dp"
-    android:background="@drawable/background"
-    android:padding="10px">
+    android:padding="16dp"
+    android:background="@drawable/background">
 
     <TextView
         android:layout_width="wrap_content"
@@ -19,6 +14,9 @@
         android:layout_marginTop="48dp"
         android:layout_marginRight="36dp"
         android:layout_marginBottom="48dp"
+        android:textColor="@color/transparent"
+        android:textSize="17dp"
+        android:textStyle="bold"
         android:text="@string/received_message"/>
 
     <Button
@@ -26,16 +24,17 @@
         android:id="@+id/closePopupBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="1dp"
-        android:layout_marginTop="160dp"
-        android:layout_marginRight="36dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="300dp"
+        android:layout_marginRight="48dp"
         android:layout_marginBottom="48dp"
-        android:textColor="@color/green"
+        android:layout_weight=".10"
+        android:gravity="center"
         android:textSize="17dp"
         app:cornerRadius="8dp"
         app:rippleColor="#33AAAAAA"
         app:strokeColor="@color/green"
-        app:backgroundTint="@color/transparent"
+        android:background="@drawable/roundbutton"
         android:text="Accept" />
 
     <Button
@@ -43,15 +42,17 @@
         android:id="@+id/skipButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="100dp"
-        android:layout_marginTop="160dp"
-        android:layout_marginRight="1dp"
-        android:layout_marginBottom="26dp"
+        android:gravity="center"
+        android:layout_marginLeft="150dp"
+        android:layout_marginTop="300dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="64dp"
         android:textColor="@color/red"
         android:textSize="17dp"
         app:cornerRadius="8dp"
         app:rippleColor="#33AAAAAA"
         app:strokeColor="@color/red"
+        android:background="@drawable/roundbutton"
         android:text="Skip>>" />
 
 </RelativeLayout>

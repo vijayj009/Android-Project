@@ -7,10 +7,10 @@ public class GetUserDetailsImpl implements GetUserDetails {
     public String fetchUser(String username, String password){
 
         String fullName = "Nishigandha Mhaisne";
-        if(null != fullName){
-            return fullName;
+        if(null != username){
+            return username;
         }else {
-            return "Invalid_User";
+            return fullName;
         }
 
     }

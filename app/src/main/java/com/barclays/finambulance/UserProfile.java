@@ -62,13 +62,13 @@ public class UserProfile extends AppCompatActivity {
         final String username = extras.getString("username");
 
         FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+/*        fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
-        });
+        });*/
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView =  (NavigationView) findViewById(R.id.nav_view);
         //navigationView.setNavigationItemSelectedListener((NavigationView.OnNavigationItemSelectedListener) this);
@@ -98,9 +98,9 @@ public class UserProfile extends AppCompatActivity {
         String emailId = username.concat("@yahoo.com");
         viewEmailId.setText(emailId);*/
 
-        popupBtn = findViewById(R.id.popupBtn);
+        //popupBtn = findViewById(R.id.popupBtn);
         final DrawerLayout layout = findViewById(R.id.drawer_layout);
-        popupBtn.setOnClickListener(new View.OnClickListener() {
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 LayoutInflater layoutInflater = (LayoutInflater) UserProfile.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -138,8 +138,11 @@ public class UserProfile extends AppCompatActivity {
                             @Override
                             public void onClick(View v) {
                                 popupWindowNotRequired.dismiss();
+                                popupWindow.dismiss();
+                                showPopupBtn.setVisibility(View.INVISIBLE);
                             }
                         });
+
                     }
                 });
 
@@ -186,7 +189,7 @@ public class UserProfile extends AppCompatActivity {
                                 });
                                 popWindowAvailableFacility.dismiss();
                                 popupWindow.dismiss();
-                                popupBtn.setVisibility(View.INVISIBLE);
+                                //popupBtn.setVisibility(View.INVISIBLE);
                             }
                         });
                         skipButton.setOnClickListener(new View.OnClickListener() {
@@ -207,7 +210,7 @@ public class UserProfile extends AppCompatActivity {
                                 });
                                 popWindowAvailableFacility.dismiss();
                                 popupWindow.dismiss();
-                                popupBtn.setVisibility(View.INVISIBLE);
+                                //popupBtn.setVisibility(View.INVISIBLE);
                             }
                         });
                     }

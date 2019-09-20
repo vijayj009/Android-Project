@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:layout_marginLeft="98dp"
+    android:layout_marginTop="180dp"
+    android:layout_marginRight="36dp"
+    android:layout_marginBottom="48dp"
+    android:background="@drawable/background"
+    android:padding="10px"
+    >
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="6dp"
+            android:layout_marginBottom="48dp"
+            android:text="Thanks you!! We are reviewing your case. \n For further assisteance - \n Please contact us at 1-800-800-800, \n Email - wecare@barclaycardus.com"
+            android:textColor="@color/transparent"
+            android:textSize="17dp"
+            android:textStyle="bold"
+            android:cursorVisible="true"/>
+
+        <Button
+            android:id="@+id/okBtn"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="80dp"
+            android:layout_marginTop="200dp"
+            android:layout_marginRight="80dp"
+            android:layout_marginBottom="60dp"
+            android:background="@drawable/roundbutton"
+            android:text="Ok"
+            android:textColor="@color/transparent"
+            android:textSize="17dp"
+            app:cornerRadius="50dp"
+            app:rippleColor="@color/transparent"
+            app:strokeColor="@color/black" />
+</RelativeLayout>
